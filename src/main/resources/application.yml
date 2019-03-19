@@ -1,0 +1,36 @@
+server:
+  port: 18080
+
+spring:
+  redis:
+    cluster:
+      nodes: localhost:7000, localhost:7001, localhost:7002
+  ### kafka 配置
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      batch-size: 16384
+      buffer-memory: 33554432
+      retries: 3
+      acks: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: yohe
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      max-poll-records: 30
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: latest
+    listener:
+      concurrency: 3
+    topic: test
+  data:
+    ##hbase配置
+    hbase:
+      quorum: 127.0.0.1
+      rootdir:
+      nodeParent: /hbase
+      port: 2181

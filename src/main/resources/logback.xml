@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false">
+    <property name="LOG_HOME" value="logs"/>
+    <property name="SERIOUS_PATTERN"
+              value="%d{yyyy-MM-dd/HH:mm:ss.SSS}|%X{localIp}|%X{requestId}|%X{requestSeq}|^_^|[%t] %-5level %logger{50} %line - %m%n"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 日志输出编码 -->
+        <encoder>
+            <pattern>${SERIOUS_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- -->
+    <appender name="Async_Console" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+
+    <appender name="FileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- <prudent>true</prudent> -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_HOME}/paladin-api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/knowledge-repository.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxFileSize>256MB</maxFileSize>
+            <maxHistory>15</maxHistory>
+            <totalSizeCap>32GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${SERIOUS_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Async_FileLog" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref="FileLog"/>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>${LOG_HOME}/paladin-api-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/knowledge-repository-error.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxFileSize>256MB</maxFileSize>
+            <maxHistory>15</maxHistory>
+            <totalSizeCap>32GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${SERIOUS_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Async_ErrorLog" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref="ERROR"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="Async_Console"/>
+        <appender-ref ref="Async_FileLog"/>
+        <appender-ref ref="Async_ErrorLog"/>
+    </root>
+
+</configuration>
