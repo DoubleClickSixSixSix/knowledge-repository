@@ -15,7 +15,7 @@ import org.springframework.data.hadoop.hbase.HbaseTemplate;
 @Configuration
 public class HBaseConfig {
 
-    @Bean
+    /*@Bean
     public HbaseTemplate hbaseTemplate(@Value("${hbase.zookeeper.quorum}") String quorum,
                                        @Value("${hbase.zookeeper.port}") String port) {
         HbaseTemplate hbaseTemplate = new HbaseTemplate();
@@ -25,5 +25,5 @@ public class HBaseConfig {
         hbaseTemplate.setConfiguration(conf);
         hbaseTemplate.setAutoFlush(true);
         return hbaseTemplate;
-    }
+    }*/
 }

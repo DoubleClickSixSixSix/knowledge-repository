@@ -19,7 +19,7 @@ import java.util.Optional;
 @Component
 public class KafkaConsumer {
 
-    @KafkaListener(topics = {"${}"}, containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = {"${spring.kafka.topic}"}, containerFactory = "kafkaListenerContainerFactory")
     public void receiveMessage(ConsumerRecord record) {
         log.info("offset: {},partition: {}, timestamp: {}", record.offset(), record.partition(), record.timestamp());
         Optional<Object> value = Optional.ofNullable(record.value());
