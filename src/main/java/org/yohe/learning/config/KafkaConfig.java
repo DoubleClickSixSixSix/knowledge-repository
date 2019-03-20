@@ -25,7 +25,7 @@ public class KafkaConfig {
     @Resource
     private KafkaProperties properties;
 
-    @Value("${paladin.consumer.concurrency}")
+    @Value("${spring.kafka.consumer.concurrency}")
     private Integer concurrency;
 
     @Bean

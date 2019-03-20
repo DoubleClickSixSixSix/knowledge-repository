@@ -26,7 +26,7 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-        <file>${LOG_HOME}/paladin-api.log</file>
+        <file>${LOG_HOME}/knowledge-repository.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/knowledge-repository.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
             <maxFileSize>256MB</maxFileSize>
@@ -48,7 +48,7 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-        <file>${LOG_HOME}/paladin-api-error.log</file>
+        <file>${LOG_HOME}/knowledge-repository-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/knowledge-repository-error.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
             <maxFileSize>256MB</maxFileSize>
