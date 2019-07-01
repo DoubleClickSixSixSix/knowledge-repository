@@ -1,4 +1,4 @@
-package org.yohe.learning.quartz;
+package org.yohe.learning.quartz.service;
 
 import org.yohe.learning.quartz.domain.ScheduleJob;
 

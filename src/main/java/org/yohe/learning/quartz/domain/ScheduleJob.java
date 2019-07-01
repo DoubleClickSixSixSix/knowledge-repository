@@ -9,7 +9,7 @@ import java.util.Map;
  * @author yuhang.zhang
  * @project knowledge-repository
  * @create 2019-03-19 下午2:15
- * @desc 调度任务实体类，可继承
+ * @desc 调度任务实体类
  **/
 @Data
 public class ScheduleJob {

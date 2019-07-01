@@ -96,7 +96,7 @@ public class ZkClusterManager {
     }
 
     private void initZkNodes() {
-        createNode(CreateMode.PERSISTENT, "");
+        createNode(CreateMode.PERSISTENT, "/k");
     }
 
     private void initTreeCache(String watchRootPath) throws Exception {

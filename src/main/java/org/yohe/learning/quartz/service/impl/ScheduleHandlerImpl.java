@@ -1,4 +1,4 @@
-package org.yohe.learning.quartz.impl;
+package org.yohe.learning.quartz.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yohe.learning.quartz.ScheduleHandler;
+import org.yohe.learning.quartz.service.ScheduleHandler;
 import org.yohe.learning.quartz.domain.ScheduleJob;
 
 /**

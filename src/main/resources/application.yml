@@ -2,13 +2,51 @@ server:
   port: 18080
 
 spring:
+  datasource:
+    username: vkds
+    password: 123456
+    url: jdbc:mysql://10.1.5.81:3306/paladin_new?useUnicode=true&characterset=utf-8&interactiveClient=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      auto-commit: true
+      max-lifetime: 1800000
+      pool-name: DatebookHikariCP
+      minimum-idle: 5
+      connection-test-query: SELECT 1
+      maximum-pool-size: 25
+      idle-timeout: 30000
   redis:
     cluster:
       nodes: localhost:7000, localhost:7001, localhost:7002
+  quartz:
+    job-store-type: jdbc #数据库方式
+    jdbc:
+      initialize-schema: never #不初始化表结构
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO #默认主机名和时间戳生成实例ID,可以是任何字符串，但对于所有调度程序来说，必须是唯一的 对应qrtz_scheduler_state INSTANCE_NAME字段
+            instanceName: clusterScheduler
+            jobStore:
+              class: org.quartz.impl.jdbcjobstore.JobStoreTX #持久化配置
+              driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate #我们仅为数据库制作了特定于数据库的代理
+              useProperties: true #以指示JDBCJobStore将JobDataMaps中的所有值都作为字符串，因此可以作为名称 - 值对存储而不是在BLOB列中以其序列化形式存储更多复杂的对象。从长远来看，这是更安全的，因为您避免了将非String类序列化为BLOB的类版本问题。
+              tablePrefix: qrtz_  #数据库表前缀
+              misfireThreshold: 60000 #在被认为“失火”之前，调度程序将“容忍”一个Triggers将其下一个启动时间通过的毫秒数。默认值（如果您在配置中未输入此属性）为60000（60秒）。
+              clusterCheckinInterval: 5000 #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
+              isClustered: true #打开群集功能
+            threadPool: #连接池
+              class: org.quartz.simpl.SimpleThreadPool
+              threadCount: 10
+              threadPriority: 5
+              threadsInheritContextClassLoaderOfInitializingThread: true
   ### kafka 配置
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 10.32.1.7:9092
       batch-size: 16384
       buffer-memory: 33554432
       retries: 3
@@ -16,7 +54,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 10.32.1.7:9092
       group-id: yohe
       enable-auto-commit: true
       auto-commit-interval: 1000
@@ -31,7 +69,7 @@ spring:
   data:
     ##hbase配置
     hbase:
-      quorum: 127.0.0.1
+      quorum: 10.32.1.7
       rootdir:
       nodeParent: /hbase
       port: 2181
