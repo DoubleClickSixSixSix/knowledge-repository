@@ -21,7 +21,7 @@
         <hikaricp.version>3.2.0</hikaricp.version>
         <mapper.version>3.3.6</mapper.version>
         <fastJson.version>1.2.54</fastJson.version>
-        <mysql.version>5.1.46</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
